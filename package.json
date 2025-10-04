@@ -1,0 +1,33 @@
+{
+  "name": "pipeline-monitor",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Publishing pipeline health monitor with circuit breaker",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test tests/**/*.test.js",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:integration": "node --test tests/integration/*.test.js",
+    "test:watch": "node --test --watch tests/**/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage tests/**/*.test.js"
+  },
+  "author": "Harsh Vardhan",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.902.0",
+    "@aws-sdk/client-sns": "^3.901.0",
+    "@aws-sdk/lib-dynamodb": "^3.902.0",
+    "axios": "^1.12.2",
+    "express": "^5.1.0",
+    "opossum": "^5.0.1"
+  },
+  "devDependencies": {
+    "aws-sdk-client-mock": "^4.1.0"
+  }
+}
