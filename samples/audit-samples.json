@@ -1,0 +1,42 @@
+[
+  {
+    "pipeline": "ess-publishing",
+    "ts": 1759591958648,
+    "eventType": "FAILURE_DETECTED",
+    "detail": {
+      "message": "Circuit OPEN: validator response failures"
+    },
+    "ttl": 7
+  },
+  {
+    "pipeline": "ess-publishing",
+    "ts": 1759591898648,
+    "eventType": "RECOVERY_ATTEMPT",
+    "detail": {
+      "reason": "auto",
+      "at": "2025-10-04T15:32:38.648858"
+    },
+    "ttl": 7
+  },
+  {
+    "pipeline": "ess-publishing",
+    "ts": 1759591928648,
+    "eventType": "RECOVERY_SUCCEEDED",
+    "detail": {
+      "result": {
+        "passed": 3,
+        "failed": 0
+      }
+    },
+    "ttl": 7
+  },
+  {
+    "pipeline": "ess-publishing",
+    "ts": 1759591948648,
+    "eventType": "RECOVERY_FAILED",
+    "detail": {
+      "error": "Validator still down"
+    },
+    "ttl": 7
+  }
+]
