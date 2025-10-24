@@ -11,6 +11,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
+    "start:local": "NODE_ENV=development node -r dotenv/config src/index.js dotenv_config_path=local.env",
     "test": "node --test tests/**/*.test.js",
     "test:unit": "node --test tests/unit/*.test.js",
     "test:integration": "node --test tests/integration/*.test.js",
@@ -24,6 +25,7 @@
     "@aws-sdk/client-sns": "^3.901.0",
     "@aws-sdk/lib-dynamodb": "^3.902.0",
     "axios": "^1.12.2",
+    "dotenv": "^16.4.5",
     "express": "^5.1.0",
     "opossum": "^5.0.1"
   },

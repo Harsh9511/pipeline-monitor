@@ -1,0 +1,19 @@
+# Simple Dockerfile for mock services
+FROM node:18-alpine
+
+WORKDIR /usr/src/app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy mock service files
+COPY mock-services/ ./mock-services/
+
+# Expose port
+EXPOSE 3001 3002
+
+# Default command (will be overridden in docker-compose)
+CMD ["node", "mock-services/validator.js"]

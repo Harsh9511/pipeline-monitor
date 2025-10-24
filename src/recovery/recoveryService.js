@@ -1,7 +1,7 @@
 import { probeHttp, aggregateHealth } from '../core/healthChecker.js';
 import { writeAudit } from '../service/index.js';
 import { CONFIG } from '../config/environment.js';
-import { nowIso } from '../utils/helpers.js';
+import { nowIso } from '../utils/helper.js';
 import { Logger } from '../utils/logger.js';
 
 export async function attemptRecovery(reason) {

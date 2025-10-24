@@ -1,8 +1,11 @@
 import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 import { CONFIG } from '../config/environment.js';
 import { Logger } from '../utils/logger.js';
+import { createMockAWSClients, mockServices } from '../config/localMocks.js';
 
-const sns = new SNSClient({ region: CONFIG.region });
+// Use mock services in local development, real AWS in production
+const isLocalDev = process.env.NODE_ENV === 'development' || process.env.AWS_ENDPOINT;
+const sns = isLocalDev ? createMockAWSClients().snsClient : new SNSClient({ region: CONFIG.region });
 
 export async function alert(subject, message) {
   if (!CONFIG.snsTopicArn) {
@@ -11,6 +14,11 @@ export async function alert(subject, message) {
   }
   
   try {
+    // Use mock service in local development
+    if (isLocalDev) {
+      return await mockServices.sendAlert(subject, message);
+    }
+
     await sns.send(new PublishCommand({
       TopicArn: CONFIG.snsTopicArn,
       Subject: subject,

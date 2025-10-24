@@ -1,35 +1,18 @@
+# Docker Compose override for testing failures
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.failures.yml up
+
 services:
-  # Mock services for local development
   validator:
-    build: 
-      context: .
-      dockerfile: Dockerfile.mock
-    container_name: mock-validator
-    ports:
-      - "3001:3001"
     environment:
       - NODE_ENV=development
-    command: node mock-services/validator.js
+      - VALIDATOR_FAIL=1  # Force validator to fail
 
   queue:
-    build: 
-      context: .
-      dockerfile: Dockerfile.mock
-    container_name: mock-queue
-    ports:
-      - "3002:3002"
     environment:
       - NODE_ENV=development
-    command: node mock-services/queue.js
+      - QUEUE_FAIL=1      # Force queue to fail
 
-  # Main pipeline monitor
   pipeline-monitor:
-    build: .
-    container_name: pipeline-monitor
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./logs:/usr/src/app/logs
     environment:
       - NODE_ENV=development
       - VALIDATOR_URL=http://validator:3001/health
@@ -47,7 +30,4 @@ services:
       - VOLUME_THRESHOLD=5
       - RESET_TIMEOUT=15000
       - AUDIT_TTL_DAYS=7
-    depends_on:
-      - validator
-      - queue
-    command: npm run start:local
+      - DBWRITE_FAIL=1    # Force DB write health check to fail

@@ -2,8 +2,9 @@ import axios from 'axios';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { Logger } from '../utils/logger.js';
-import { nowIso } from '../utils/helpers.js';
+import { nowIso } from '../utils/helper.js';
 import { CONFIG } from '../config/environment.js';
+import { createMockAWSClients, mockServices } from '../config/localMocks.js';
 
 export async function probeHttp({ url, method = 'GET', timeout = 3000 }) {
   const res = await axios.request({
@@ -26,6 +27,20 @@ export async function probeHttp({ url, method = 'GET', timeout = 3000 }) {
  */
 export async function probeDbWrite({ table = CONFIG.statusTable } = {}) {
   try {
+    // Use mock service in local development
+    const isLocalDev = process.env.NODE_ENV === 'development' || process.env.AWS_ENDPOINT;
+    const forceFail = process.env.DBWRITE_FAIL === '1' || process.env.HEALTH_DB_FAIL === '1';
+    
+    if (isLocalDev) {
+      // For local development, simulate success or failure based on env toggle
+      if (forceFail) {
+        console.log('🔍 Mock DB Write Check: FORCED FAIL');
+        return { ok: false, detail: 'mock-db-forced-fail', timestamp: nowIso() };
+      }
+      console.log('🔍 Mock DB Write Check: OK');
+      return { ok: true, detail: 'mock-db-ok', timestamp: nowIso() };
+    }
+
     const client = new DynamoDBClient({ region: CONFIG.region });
     const doc = DynamoDBDocumentClient.from(client);
 

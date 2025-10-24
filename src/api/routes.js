@@ -2,7 +2,7 @@ import express from 'express';
 import { readStatus, writeStatus, writeAudit, alert } from '../service/index.js';
 import { attemptRecovery } from '../recovery/recoveryService.js';
 import { CONFIG } from '../config/environment.js';
-import { SUGGESTIONS, nowIso, getStatusFromCircuit } from '../utils/helpers.js';
+import { SUGGESTIONS, nowIso, getStatusFromCircuit } from '../utils/helper.js';
 import { Logger } from '../utils/logger.js';
 
 export function createRoutes(breaker) {

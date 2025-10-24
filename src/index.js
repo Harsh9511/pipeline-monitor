@@ -5,7 +5,7 @@ import { createCircuitBreaker } from './core/circuitBreaker.js';
 import { createRoutes } from './api/routes.js';
 import { writeAudit, writeStatus } from './service/index.js';
 import { Logger } from './utils/logger.js';
-import { SUGGESTIONS, getStatusFromCircuit, nowIso } from './utils/helpers.js';
+import { SUGGESTIONS, getStatusFromCircuit, nowIso } from './utils/helper.js';
 
 export * from './service/index.js';
 

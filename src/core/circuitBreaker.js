@@ -3,7 +3,7 @@ import { Logger } from '../utils/logger.js';
 import { aggregateHealth } from './healthChecker.js';
 import { writeAudit, writeStatus, alert } from '../service/index.js';
 import { CONFIG } from '../config/environment.js';
-import { SUGGESTIONS, nowIso } from '../utils/helpers.js';
+import { SUGGESTIONS, nowIso } from '../utils/helper.js';
 
 export function createCircuitBreaker() {
   // Wrap aggregate health check with circuit breaker
